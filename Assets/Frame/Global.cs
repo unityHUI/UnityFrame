@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Global  {
     // 打包AssetBundle需要的路径
-    public static string AssetBundlePath = Application.dataPath + "/Art/Scenes/";
+    public static string AssetBundlePath = Application.dataPath + "/Art/Scences/";
 }
