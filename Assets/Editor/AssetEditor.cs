@@ -8,12 +8,9 @@ public class AssetEditor
 {
     [MenuItem("Tools/BuildAssetBundle")]
     public static void BuildAssetBundle() {
-        string assetBundleDirectory = "Assets/AssetBundles";
-        if (!Directory.Exists(assetBundleDirectory))
-        {
-            Directory.CreateDirectory(assetBundleDirectory);
-        }
-        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+        string assetBundleDirectory = "F:/YGH/AssetBundles";
+       
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
     }
     /// <summary>
     /// 遍历 D :UnityFrame/Assets/Art/Scences/ 目录，添加下一级的目录

@@ -1,2 +1,3 @@
-LoadModel - loadmodel.ld
+LoadTex - loadtex.ld
+ld
 LoadUI - loadui.ld
