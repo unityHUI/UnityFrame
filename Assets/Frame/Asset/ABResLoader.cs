@@ -5,7 +5,6 @@ using UnityEngine;
 public class ABResLoader
 {
     private AssetBundle mAB;
-
     public ABResLoader(AssetBundle tmpAB) {
         mAB = tmpAB;
     }

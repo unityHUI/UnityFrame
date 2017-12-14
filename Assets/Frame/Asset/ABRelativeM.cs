@@ -7,6 +7,8 @@ public class ABRelativeM {
     private List<string> dependList;
     private List<string> referList;
     private ABLoader abLoader;
+    private string bundleName;
+    private ABLoadProgress loadProgress;
     public ABRelativeM() {
         dependList = new List<string>();
         referList = new List<string>();
@@ -20,11 +22,22 @@ public class ABRelativeM {
     public void BundleLoadFinish(string bundleName) {
         isLoadFinish = true;
     }
-    public void Initial(ABLoadProgress loadProgress) {
+
+
+    public void Initial(string bundleName,ABLoadProgress loadProgress) {
+        this.bundleName = bundleName;
+        this.loadProgress = loadProgress;
         isLoadFinish = false;
         abLoader = new ABLoader(loadProgress, BundleLoadFinish);
     }
 
+    public List<string> GetReferList()
+    {
+        return referList;
+    }
+    public ABLoadProgress GetLoadProgress() {
+        return loadProgress;
+    }
 
     public void AddReferBundle(string bundleName) {
         if (!referList.Contains(bundleName)) {
@@ -32,9 +45,7 @@ public class ABRelativeM {
         }
     }
 
-    public List<string> GetReferList() {
-        return referList;
-    }
+ 
     /// <summary>
     /// 移除被依赖的bundle
     /// </summary>

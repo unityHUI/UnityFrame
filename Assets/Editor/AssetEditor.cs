@@ -8,7 +8,7 @@ public class AssetEditor
 {
     [MenuItem("Tools/BuildAssetBundle")]
     public static void BuildAssetBundle() {
-        string assetBundleDirectory = "F:/YGH/AssetBundles";
+        string assetBundleDirectory = PathTool.GetBundlePath();
        
         BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
     }
