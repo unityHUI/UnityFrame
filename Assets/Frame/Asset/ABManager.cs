@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public delegate void LoadAssetBundleCallBack(string scenceName, string bundleName);
@@ -77,8 +78,9 @@ public class ABManager
     public ABManager(string scenceName) {
         this.scenceName = scenceName;
     }
+    //存储bundle的依赖管理
     Dictionary<string, ABRelativeM> loadHelperDic = new Dictionary<string, ABRelativeM>();
-
+    //存储场景中所有Bundle的Asset加载管理
     Dictionary<string, BundleAssetM> loadedAssetMDic = new Dictionary<string, BundleAssetM>();
 
     #region  释放LoadAsset出来的资源
@@ -106,12 +108,43 @@ public class ABManager
         }
         loadedAssetMDic.Clear();
     }
+
+    public void ReleseBundle(string bundleName,bool isReleseRes) {
+        if (loadHelperDic.ContainsKey(bundleName)) {
+            ABRelativeM abrM = loadHelperDic[bundleName];
+            List<string> dependList = abrM.GetDependList();
+            for (int i = 0; i < dependList.Count; i++) {
+                if (loadHelperDic.ContainsKey(dependList[i])){
+                    ABRelativeM dependAbrm = loadHelperDic[dependList[i]];
+                    if (dependAbrm.RemoveReferBundle(bundleName)) {
+                        ReleseBundle(dependAbrm.BundleName,isReleseRes);
+                    }
+                }
+            }
+            if (abrM.GetReferList().Count <= 0) {
+                if (isReleseRes)
+                {
+                    ReleseBundleAsset(bundleName);
+                }
+                abrM.Dispose();
+                loadHelperDic.Remove(bundleName);
+            }
+        }
+    }
+    public void ReleseAllBundle(bool isRelese) {
+        if(isRelese)  ReleseAllBundleAsset();
+        List<string> keys = new List<string>();
+        keys.AddRange(loadHelperDic.Keys);
+        for (int i = 0; i < keys.Count; i++) {
+            loadHelperDic[keys[i]].Dispose();
+        }
+        loadHelperDic.Clear();
+    }
     #endregion
 
     private string[] GetBundleDepends(string bundleName) {
         return ManifestManager.Instance.GetBundleDepends(bundleName);
     }
-
     public void LoadAssetBundle(string bundleName, ABLoadProgress loadProgress, LoadAssetBundleCallBack callBack) {
         if (!loadHelperDic.ContainsKey(bundleName)) {
             ABRelativeM abM = new ABRelativeM();
@@ -154,6 +187,9 @@ public class ABManager
 
     }
 
+ 
+
+    //调用底层API
     public void DebugBundleAsset(string bundleName)
     {
         if (loadHelperDic.ContainsKey(bundleName))

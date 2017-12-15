@@ -1,3 +1,2 @@
 LoadTex - loadtex.ld
-ld
 LoadUI - loadui.ld

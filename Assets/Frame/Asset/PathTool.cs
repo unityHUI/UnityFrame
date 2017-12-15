@@ -41,4 +41,5 @@ public class PathTool
         string allPath = Path.Combine(GetAppFilePath(), foldName);
         return allPath;
     }
+
 }

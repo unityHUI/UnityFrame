@@ -8,6 +8,11 @@ public class ABRelativeM {
     private List<string> referList;
     private ABLoader abLoader;
     private string bundleName;
+    public string BundleName {
+        get {
+            return bundleName;
+        }
+    }
     private ABLoadProgress loadProgress;
     public ABRelativeM() {
         dependList = new List<string>();
