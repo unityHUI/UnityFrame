@@ -11,6 +11,8 @@ public enum ManagerID:ushort
 
     NpcManager = Tools.MsgSpan * 2,
 
+    AssetManager = Tools.MsgSpan * 3,
+
 }
 
 public class Tools
