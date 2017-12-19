@@ -34,6 +34,9 @@ public class ABRelativeM {
         this.loadProgress = loadProgress;
         isLoadFinish = false;
         abLoader = new ABLoader(loadProgress, BundleLoadFinish);
+        abLoader.SetBundleName(bundleName);
+        string bundlePath = PathTool.GetWWWAssetBundlePath() + "/" + bundleName;
+        abLoader.BundlePath = bundlePath;
     }
 
     public List<string> GetReferList()

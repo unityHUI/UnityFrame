@@ -19,6 +19,7 @@ public class ABScenceManager  {
     }
     private void ReadRecordTxt(string path)
     {
+        Debug.Log("txtPath = " + path);
         FileStream fs = new FileStream(path, FileMode.Open);
         StreamReader sr = new StreamReader(fs);
         string tmpStr = sr.ReadLine();
@@ -26,6 +27,7 @@ public class ABScenceManager  {
         {
             string[] tmpstrArr = tmpStr.Split(" - ".ToCharArray());
             allBundleDir.Add(tmpstrArr[0], tmpstrArr[1]);
+            Debug.Log(" Txt Dir  : " + tmpstrArr[0] +" -- "+ tmpstrArr[1]);
         }
         sr.Close();
         fs.Close();
@@ -118,5 +120,30 @@ public class ABScenceManager  {
             abManager.DebugBundleAsset(keys[i]);
         }
     }
-
+    public bool IsLoadingFinish(string bundleKey) {
+        if (allBundleDir.ContainsKey(bundleKey))
+        {
+            return abManager.IsLoadFinishBundle(allBundleDir[bundleKey]);
+        }
+        else {
+            Debug.Log("Dont contain Bundle  bundleKey = " + bundleKey);
+            return false;
+        }
+    }
+    public bool IsLoadedBundle(string bundleKey) {
+        if (allBundleDir.ContainsKey(bundleKey))
+        {
+            return abManager.IsLoadedBundle(allBundleDir[bundleKey]);
+        }
+        else {
+            Debug.Log("Dont contain Bundle  bundleKey = " + bundleKey);
+            return false;
+        }
+    }
+    public string GetRelateBundleName(string bundleKey) {
+        if (allBundleDir.ContainsKey(bundleKey)) {
+            return allBundleDir[bundleKey];
+        }
+        return null;
+    }
 }

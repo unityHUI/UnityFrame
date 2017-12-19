@@ -6,7 +6,7 @@ using UnityEngine;
 // ???
 // UIBase 继承 MonoBase 重写HandleMsgEvent 此处的HandleMsgEvent是为了传递消息 
 // 继承UIBase的类 必须也要重写 HandleMsgEvent 来写消息的具体处理代码  
-public class UIBase : MonoBase
+public abstract class UIBase : MonoBase
 {
 
     public ushort[] msgIds;
@@ -28,9 +28,7 @@ public class UIBase : MonoBase
     {
         UIManager.Instance.RemoveMultMsg(mono, msgs);
     }
-    public override void HandleMsgEvent(MsgBase msg)
-    {
-    }
+
     public void AnalysisMsg(MsgBase msg)
     {
        UIManager.Instance.AnalysisMsg(msg);

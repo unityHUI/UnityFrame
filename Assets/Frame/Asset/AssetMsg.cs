@@ -44,24 +44,24 @@ public class AssetMsg : MsgBase
         }
     }
 
-    private bool isMult;
-    public bool IsMult
+    private bool isSingle;
+    public bool IsSingle
     {
         get
         {
-            return isMult;
+            return isSingle;
         }
     }
     #endregion
 
-    public AssetMsg(string _scenceName,string _bundleName,string _resName,ushort _backMsgId,ushort _msgId,bool _isMult) 
+    public AssetMsg(string _scenceName,string _bundleName,string _resName,ushort _backMsgId,ushort _msgId,bool _isSingle) 
         : base(_msgId)
     {
         scenceName = _scenceName;
         bundleName = _bundleName;
         resName = _resName;
         backMsgId = _backMsgId;
-        isMult = _isMult;
+        isSingle = _isSingle;
     }
 }
 
@@ -77,9 +77,12 @@ public class AssetBackMsg : MsgBase {
             return value;
         }
     }
-
     public AssetBackMsg(ushort _msgID,params Object[] _value) : base(_msgID)
     {
+        value = _value;
+    }
+    public void ChangeMsg(ushort _msgID, params Object[] _value) {
+        base.MsgID = _msgID;
         value = _value;
     }
 

@@ -14,7 +14,7 @@ public abstract class AssetBase : MonoBase
     /// <param name="msgs">脚本要监听的消息</param>
     public void RegisterSelfMsg(MonoBase mono, params ushort[] msgs)
     {
-        UIManager.Instance.RegisterMultMsg(mono, msgs);
+        AssetManager.Instance.RegisterMultMsg(mono, msgs);
     }
     /// <summary>
     /// 将脚本从UIManager的消息链中移除
@@ -23,11 +23,11 @@ public abstract class AssetBase : MonoBase
     /// <param name="msgs">脚本监听的消息</param>
     public void RemoveSelfMsg(MonoBase mono, params ushort[] msgs)
     {
-        UIManager.Instance.RemoveMultMsg(mono, msgs);
+        AssetManager.Instance.RemoveMultMsg(mono, msgs);
     }
     public void AnalysisMsg(MsgBase msg)
     {
-        UIManager.Instance.AnalysisMsg(msg);
+        AssetManager.Instance.AnalysisMsg(msg);
     }
     void OnDestroy()
     {

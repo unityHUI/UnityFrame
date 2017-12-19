@@ -15,6 +15,14 @@ public class LoadUI : UIBase
         leftBtn.GetComponent<UIBehavier>().AddButtonListener(LeftClick);
         GameObject rightBtn = UIManager.Instance.GetGameObject("LoadR");
         rightBtn.GetComponent<UIBehavier>().AddButtonListener(RightClick);
+
+        // Test AssetBundle
+        msgIds = new ushort[] {
+          (ushort)UIEventMsg.LoadUIBundleFinish
+        };
+        RegisterSelfMsg(this, msgIds);
+        AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadTex", "tex", (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.LoadAsset, true);
+        SendMsg(assteMsg);
     }
     void ForwardClick() {
         MsgBase msg = new MsgBase((ushort)NPCEvent.Forward);
@@ -41,7 +49,6 @@ public class LoadUI : UIBase
     }
     public override void HandleMsgEvent(MsgBase msg)
     {
-        base.HandleMsgEvent(msg);
 
     }
 }

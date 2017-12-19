@@ -20,7 +20,6 @@ public class ManagerBase : MonoBase
         {
             EventNode node = new EventNode(mono);
             RegisterMsg(node, msgs[i]);
-            print("Register" + msgs[i]);
         }
     }
     /// <summary>

@@ -16,6 +16,9 @@ public class MsgBase
         {
             return _msgID;
         }
+        set {
+            _msgID = value;
+        }
     }
 
     /// <summary>

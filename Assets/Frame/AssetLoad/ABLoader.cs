@@ -47,6 +47,7 @@ public class ABLoader
         }
         if (progress >= 1.0f)
         {
+            resLoader = new ABResLoader(www.assetBundle);
             if (loadProgressHandler != null)
             {
                 loadProgressHandler(bundleName, progress);
@@ -55,7 +56,6 @@ public class ABLoader
             {
                 loadFinishHandler(bundleName);
             }
-            resLoader = new ABResLoader(www.assetBundle);
         }
         else
         {

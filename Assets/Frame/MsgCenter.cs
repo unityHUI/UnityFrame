@@ -13,11 +13,20 @@ public class MsgCenter : MonoBehaviour
         }
     }
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         _Instance = this;
+        Initial();
     }
+    void Initial() {
+        //模块  
+        gameObject.AddComponent<UIManager>();
+        gameObject.AddComponent<NPCManager>();
+        gameObject.AddComponent<AssetManager>();
 
+        //框架内
+        gameObject.AddComponent<ABLoadManager>();
+    }
     public void HandleMsg(MsgBase msg)
     {
         AnalysisMsg(msg);
@@ -32,6 +41,9 @@ public class MsgCenter : MonoBehaviour
                 break;
             case ManagerID.NpcManager:
                 NPCManager.Instance.AnalysisMsg(msg);
+                break;
+            case ManagerID.AssetManager:
+                AssetManager.Instance.AnalysisMsg(msg);
                 break;
             case ManagerID.GameManager:
                 break;

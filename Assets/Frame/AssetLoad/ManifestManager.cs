@@ -31,7 +31,9 @@ public class ManifestManager  {
     public AssetBundleManifest manifest;
     public AssetBundle manifestBundle;
     public ManifestManager() {
-        manifestPath = "";
+        manifest = null;
+        manifestBundle = null;
+        manifestPath = PathTool.GetWWWAssetBundlePath() + "/" + PathTool.GetFoldNameWithPlatForm();
         isLoadFinish = false;  
     }
 

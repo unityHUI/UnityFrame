@@ -13,7 +13,6 @@ public class ABLoadManager : MonoBehaviour {
         instance = this;
         //加载Manifest 
         StartCoroutine(ManifestManager.Instance.LoadManifest());   
- 
     }
     private Dictionary<string, ABScenceManager> abScenceMDir = new Dictionary<string, ABScenceManager>();
     //读取场景 bundle 记录文件
@@ -187,6 +186,52 @@ public class ABLoadManager : MonoBehaviour {
         {
             ABScenceManager absM = abScenceMDir[scenceName];
             absM.DebugAllBundleInfo();
+        }
+    }
+    /// <summary>
+    /// AssteBundle是否下载完成
+    /// </summary>
+    /// <param name="scenceName"></param>
+    /// <param name="bundleName"></param>
+    /// <returns></returns>
+    public bool IsLoadingFinish(string scenceName, string bundleName) {
+        if (abScenceMDir.ContainsKey(scenceName))
+        {
+            return abScenceMDir[scenceName].IsLoadingFinish(bundleName);
+        }
+        else {
+            Debug.Log("Dont contain Scence  scenceName = " + scenceName);
+            return false;
+        }
+    }
+    /// <summary>
+    /// 是否添加AssetBundle到 下载队列
+    /// </summary>
+    /// <param name="scenceName"></param>
+    /// <param name="bundleName"></param>
+    /// <returns></returns>
+    public bool IsLoadedBundle(string scenceName, string bundleName)
+    {
+        if (abScenceMDir.ContainsKey(scenceName))
+        {
+            return abScenceMDir[scenceName].IsLoadedBundle(bundleName);
+        }
+        else
+        {
+            Debug.Log("Dont contain Scence  scenceName = " + scenceName);
+            return false;
+        }
+    }
+
+    public string GetRelateBundleName(string scenceName,string bundleKey) {
+        if (abScenceMDir.ContainsKey(scenceName))
+        {
+            return abScenceMDir[scenceName].GetRelateBundleName(bundleKey);
+        }
+        else
+        {
+            Debug.Log("Dont contain Scence  scenceName = " + scenceName);
+            return null;
         }
     }
     void OnDestroy() {

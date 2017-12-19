@@ -169,7 +169,7 @@ public class ABManager
         else {
             if(refName != null) {
                 loadHelperDic[bundleName].AddReferBundle(refName);
-              }
+            }
         }
     }
 
@@ -187,7 +187,18 @@ public class ABManager
 
     }
 
- 
+    /// <summary>
+    /// 表示是否加载了Bundle 
+    /// </summary>
+    /// <param name="bundleName"></param>
+    /// <returns></returns>
+    public bool  IsLoadedBundle(string bundleName)
+    {
+        if (loadHelperDic.ContainsKey(bundleName)) {
+            return true;
+        }
+        return false;
+    }
 
     //调用底层API
     public void DebugBundleAsset(string bundleName)
@@ -197,6 +208,11 @@ public class ABManager
             loadHelperDic[bundleName].DebugBundleAsset();
         }
     }
+    /// <summary>
+    /// 表示bundle 是否加载完成
+    /// </summary>
+    /// <param name="bundleName"></param>
+    /// <returns></returns>
     public bool IsLoadFinishBundle(string bundleName)
     {
         if (loadHelperDic.ContainsKey(bundleName))
@@ -278,6 +294,7 @@ public class ABManager
             Debug.Log("Dont Load the Bundle    bundleName = " + bundleName);
             return null;
         }
-
     }
+
+   
 }

@@ -8,9 +8,13 @@ public class AssetEditor
 {
     [MenuItem("Tools/BuildAssetBundle")]
     public static void BuildAssetBundle() {
-        string assetBundleDirectory = PathTool.GetBundlePath();
        
+        string assetBundleDirectory = PathTool.GetBundlePath();
+        if (!Directory.Exists(assetBundleDirectory)) {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
         BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+        AssetDatabase.Refresh();
     }
     /// <summary>
     /// 遍历 D :UnityFrame/Assets/Art/Scences/ 目录，添加下一级的目录
@@ -21,7 +25,6 @@ public class AssetEditor
         AssetDatabase.RemoveUnusedAssetBundleNames();
         string path = Global.AssetBundlePath;
         DirectoryInfo tempDir = new DirectoryInfo(path);
-        Debug.Log(tempDir.FullName);
         FileSystemInfo[] filesInfo = tempDir.GetFileSystemInfos();
         for (int i = 0; i < filesInfo.Length; i++)
         {
@@ -32,6 +35,9 @@ public class AssetEditor
                 LoadScenceBundle(tempPath);
             }
         }
+        string outPath = PathTool.GetBundlePath() ;
+        CopyRecordTxt(path, outPath);
+        AssetDatabase.Refresh();
     }
     /// <summary>
     /// 添加标记文档 
@@ -51,6 +57,25 @@ public class AssetEditor
         }
         sw.Close();
         fs.Close();
+    }
+    public static void CopyRecordTxt(string oriPath, string desPath) {
+        DirectoryInfo tmpDir = new DirectoryInfo(oriPath);
+        if (!tmpDir.Exists) {
+            Debug.Log("the path is null ! path =" + tmpDir);
+            return;
+        }
+        if (!Directory.Exists(desPath)) 
+        Directory.CreateDirectory(desPath);
+
+        FileSystemInfo[] files = tmpDir.GetFileSystemInfos();
+        for (int i = 0; i < files.Length; i++) {
+            FileInfo file = files[i] as FileInfo;
+            if (file != null && file.Extension == ".txt") {
+                string sourceFile = oriPath + file.Name;
+                string desFile = desPath + "/" + file.Name;
+                File.Copy(sourceFile, desFile, true);
+            } 
+        }
     }
     /// <summary>
     ///  截取相对路径
@@ -118,17 +143,13 @@ public class AssetEditor
 
         int tmpCount = tmpPath.IndexOf(replacePath);
         tmpCount += replacePath.Length + 1;
-        Debug.Log(" FileName " + file.Name);
         int nameCount = tmpPath.LastIndexOf(file.Name);
      
         int tmpLength = nameCount - tmpCount;
         if (tmpLength > 0)
         {
             string subString = tmpPath.Substring(tmpCount, tmpPath.Length - tmpCount);
-            Debug.Log("SubString " + subString);
             string[] result = subString.Split("/".ToCharArray());
-
-            Debug.Log("result  " + scenceHead + "/" + result[0]);
             return scenceHead + "/" + result[0];
         }
         else {

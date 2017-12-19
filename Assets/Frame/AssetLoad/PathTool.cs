@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 public class PathTool
 {
-    private static string GetFoldNameWithPlatForm()
+    public static string GetFoldNameWithPlatForm()
     {
         switch (Application.platform)
         {
@@ -38,8 +38,26 @@ public class PathTool
     public static string GetBundlePath()
     {
         string foldName = GetFoldNameWithPlatForm();
-        string allPath = Path.Combine(GetAppFilePath(), foldName);
+        string allPath = GetAppFilePath() + "/" + foldName;
         return allPath;
     }
 
+    public static string GetWWWAssetBundlePath() {
+        string tmpStr = "";
+        if (Application.platform == RuntimePlatform.WindowsEditor && Application.platform == RuntimePlatform.OSXEditor)
+        {
+            tmpStr = "file:///" + GetBundlePath();
+        }
+        else {
+            string tmpPath = GetBundlePath();
+#if UNITY_ANDROID
+            tmpStr = "jar:file://"+tmpPath
+#elif UNITY_STANDALONE_WIN
+            tmpStr = "file:///" + tmpPath;
+#else
+            tmpStr = "file://"+tmpPath;
+#endif
+        }
+        return tmpStr;
+    }
 }

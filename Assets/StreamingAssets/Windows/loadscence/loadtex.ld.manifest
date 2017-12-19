@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1632920759
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0421b3f60b32b9fca14ebf9ddbc0dcff
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c1642440719609290a7e09a50a7286f4
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Art/Scences/LoadScence/LoadTex/tex.jpg
+Dependencies: []
