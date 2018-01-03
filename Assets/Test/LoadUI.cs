@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoadUI : UIBase
 {
@@ -15,13 +16,34 @@ public class LoadUI : UIBase
         leftBtn.GetComponent<UIBehavier>().AddButtonListener(LeftClick);
         GameObject rightBtn = UIManager.Instance.GetGameObject("LoadR");
         rightBtn.GetComponent<UIBehavier>().AddButtonListener(RightClick);
-
         // Test AssetBundle
+        GameObject loadAsset = UIManager.Instance.GetGameObject("LoadAsset");
+        loadAsset.GetComponent<UIBehavier>().AddButtonListener(LoadAssetClick);
+
+        GameObject releseAsset = UIManager.Instance.GetGameObject("ReleseAsset");
+        releseAsset.GetComponent<UIBehavier>().AddButtonListener(ReleseAsset);
+
+        GameObject releseBundle = UIManager.Instance.GetGameObject("ReleseBundle");
+        releseBundle.GetComponent<UIBehavier>().AddButtonListener(ReleseBundle);
+
         msgIds = new ushort[] {
           (ushort)UIEventMsg.LoadUIBundleFinish
         };
         RegisterSelfMsg(this, msgIds);
-        AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadTex", "tex", (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.LoadAsset, true);
+       // AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadModel", "YGHCube", (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.LoadAsset, true);
+      //  SendMsg(assteMsg);
+    }
+    void LoadAssetClick()
+    {
+        AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadModel", "YGHCube", (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.LoadAsset, true);
+        SendMsg(assteMsg);
+    }
+    void ReleseAsset() {
+        AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadTex", "tex", (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.ReleseAsset, true);
+        SendMsg(assteMsg);
+    }
+    void ReleseBundle() {
+        AssetMsg assteMsg = new AssetMsg("LoadScence", "LoadModel", null, (ushort)UIEventMsg.LoadUIBundleFinish, (ushort)AssetEventMsg.ReleseBundle,true);
         SendMsg(assteMsg);
     }
     void ForwardClick() {
@@ -49,6 +71,12 @@ public class LoadUI : UIBase
     }
     public override void HandleMsgEvent(MsgBase msg)
     {
-
+        switch (msg.MsgID) {
+            case (ushort)UIEventMsg.LoadUIBundleFinish:
+                AssetBackMsg tmpMsg = (AssetBackMsg)msg;
+                Object[] obj = tmpMsg.Value;
+                Instantiate(obj[0]);
+                break;
+        }
     }
 }

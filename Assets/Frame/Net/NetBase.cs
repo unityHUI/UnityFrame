@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AudioBase : MonoBase
+public abstract class NetBase : MonoBase
 {
     public ushort[] msgIds;
     /// <summary>
@@ -13,7 +12,7 @@ public abstract class AudioBase : MonoBase
     /// <param name="msgs">脚本要监听的消息</param>
     public void RegisterSelfMsg(MonoBase mono, params ushort[] msgs)
     {
-        AudioManager.Instance.RegisterMultMsg(mono, msgs);
+        NetManager.Instance.RegisterMultMsg(mono, msgs);
     }
     /// <summary>
     /// 将脚本从UIManager的消息链中移除
@@ -22,12 +21,11 @@ public abstract class AudioBase : MonoBase
     /// <param name="msgs">脚本监听的消息</param>
     public void RemoveSelfMsg(MonoBase mono, params ushort[] msgs)
     {
-        AudioManager.Instance.RemoveMultMsg(mono, msgs);
+        NetManager.Instance.RemoveMultMsg(mono, msgs);
     }
     public void AnalysisMsg(MsgBase msg)
     {
-        AudioManager.Instance.AnalysisMsg(msg);
-       
+        NetManager.Instance.AnalysisMsg(msg);
     }
     void OnDestroy()
     {

@@ -1,7 +1,15 @@
 ManifestFileVersion: 0
-CRC: 4163508651
+CRC: 1550478677
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: loadscence/loadtex.ld
       Dependencies: {}
+    Info_1:
+      Name: loadscence/loadmodel.ld
+      Dependencies:
+        Dependency_0: loadscence/loadmat.ld
+    Info_2:
+      Name: loadscence/loadmat.ld
+      Dependencies:
+        Dependency_0: loadscence/loadtex.ld

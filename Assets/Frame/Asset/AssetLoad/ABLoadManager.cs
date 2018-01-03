@@ -215,12 +215,8 @@ public class ABLoadManager : MonoBehaviour {
         if (abScenceMDir.ContainsKey(scenceName))
         {
             return abScenceMDir[scenceName].IsLoadedBundle(bundleName);
-        }
-        else
-        {
-            Debug.Log("Dont contain Scence  scenceName = " + scenceName);
+        }    
             return false;
-        }
     }
 
     public string GetRelateBundleName(string scenceName,string bundleKey) {

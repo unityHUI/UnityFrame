@@ -30,7 +30,7 @@ public class MsgBase
         int temID = _msgID / Tools.MsgSpan;
         return (ManagerID)(temID * Tools.MsgSpan);
     }
-
+    public MsgBase() { }
     public MsgBase(ushort msgID)
     {
         _msgID = msgID;

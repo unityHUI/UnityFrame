@@ -13,6 +13,10 @@ public enum ManagerID:ushort
 
     AssetManager = Tools.MsgSpan * 3,
 
+    AudioManager = Tools.MsgSpan * 4,
+
+    NetManager = Tools.MsgSpan * 5,
+
 }
 
 public class Tools

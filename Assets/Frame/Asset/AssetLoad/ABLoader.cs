@@ -33,9 +33,12 @@ public class ABLoader
     }
     public IEnumerator IELoadAB()
     {
+        progress = 0;
+        Debug.Log("bundlePath = " + bundlePath);
         www = new WWW(bundlePath);
-        //?????
-        while (!www.isDone)
+        // Android 平台替换为   AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
+        //  LoadFromFileAsync 不需要 前缀 File://   加载 Manifest 也要替换 
+        while (!www.isDone) 
         {
             progress = www.progress;
             if (loadProgressHandler != null)

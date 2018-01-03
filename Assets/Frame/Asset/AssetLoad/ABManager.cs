@@ -18,6 +18,8 @@ public class Asset
     {
         for (int i = 0; i < objList.Count; i++)
         {
+            Debug.Log("Relese Asset  = "+ objList[i].name);
+            if (objList[i].GetType() != typeof(UnityEngine.GameObject)) ;
             Resources.UnloadAsset(objList[i]);
         }
     }
@@ -86,9 +88,14 @@ public class ABManager
     #region  释放LoadAsset出来的资源
     // 释放单个从Bundle中Load的资源
     public void ReleseLoadedAsset(string bundleName,string resName) {
-        if (loadedAssetMDic.ContainsKey(bundleName)) {
+        if (loadedAssetMDic.ContainsKey(bundleName))
+        {
             BundleAssetM baM = loadedAssetMDic[bundleName];
+            Debug.Log(" Relese Res  resName =" + resName);
             baM.ReleseAsset(resName);
+        }
+        else {
+            Debug.Log("Dont Have BundleAsset Manager   bundleName =" + bundleName);
         }
     }
     //释放从Bundle中Load的所有资源
@@ -114,6 +121,7 @@ public class ABManager
             ABRelativeM abrM = loadHelperDic[bundleName];
             List<string> dependList = abrM.GetDependList();
             for (int i = 0; i < dependList.Count; i++) {
+               
                 if (loadHelperDic.ContainsKey(dependList[i])){
                     ABRelativeM dependAbrm = loadHelperDic[dependList[i]];
                     if (dependAbrm.RemoveReferBundle(bundleName)) {
@@ -162,7 +170,7 @@ public class ABManager
             loadHelperDic.Add(bundleName, abM);
             if (refName != null)
             {
-                abM.AddReferBundle(bundleName);
+                abM.AddReferBundle(refName);
             }
             yield return LoadAssetBundle(bundleName);
         }
@@ -183,6 +191,7 @@ public class ABManager
         for (int i = 0; i < depends.Length; i++) {
             yield return LoadABDepends(depends[i], bundleName, abM.GetLoadProgress());
         }
+       
         yield return abM.LoadAssetBundle();
 
     }
@@ -232,12 +241,14 @@ public class ABManager
         if (loadedAssetMDic.ContainsKey(bundleName))
         {
             List<Object> tmpList = loadedAssetMDic[bundleName].GetLoadedAssets(resName);
+            Debug.Log("已缓存Asset  = "+ tmpList[0].name);
             if (tmpList != null) return tmpList[0];
         }
         //是否加载过Bundle 
         if (loadHelperDic.ContainsKey(bundleName))
         {
             ABRelativeM abM = loadHelperDic[bundleName];
+            Debug.Log("从已缓存bundle中加载 bundleName = " + bundleName + " Asset =" + resName);
             Object tmpObj = abM.GetSingleRes(resName);
             Asset assetObj = new Asset(tmpObj);
             //如果当前已经存在Bundle的BundleAssetM

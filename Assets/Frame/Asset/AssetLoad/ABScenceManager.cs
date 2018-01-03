@@ -19,15 +19,14 @@ public class ABScenceManager  {
     }
     private void ReadRecordTxt(string path)
     {
-        Debug.Log("txtPath = " + path);
         FileStream fs = new FileStream(path, FileMode.Open);
         StreamReader sr = new StreamReader(fs);
         string tmpStr = sr.ReadLine();
-        if (tmpStr != null)
+        while (tmpStr != null)
         {
-            string[] tmpstrArr = tmpStr.Split(" - ".ToCharArray());
+            string[] tmpstrArr = tmpStr.Split("-".ToCharArray());
             allBundleDir.Add(tmpstrArr[0], tmpstrArr[1]);
-            Debug.Log(" Txt Dir  : " + tmpstrArr[0] +" -- "+ tmpstrArr[1]);
+            tmpStr = sr.ReadLine();
         }
         sr.Close();
         fs.Close();
@@ -77,6 +76,7 @@ public class ABScenceManager  {
     public void ReleseAsset(string bundleKey,string resName) {
         if (allBundleDir.ContainsKey(bundleKey))
         {
+            Debug.Log("ReleseAsset bundleKey =" + bundleKey);
            abManager.ReleseLoadedAsset(allBundleDir[bundleKey], resName);
         }
         else
@@ -102,7 +102,14 @@ public class ABScenceManager  {
     public void ReleseBundle(string bundleKey,bool isReleseAsset) {
         if (allBundleDir.ContainsKey(bundleKey))
         {
-            abManager.ReleseBundle(allBundleDir[bundleKey],isReleseAsset);
+            // Debug 当前场景所有Bundle的 依赖 和 被依赖关系
+            //List<string> keys = new List<string>();
+            //keys.AddRange(abManager.loadHelperDic.Keys);
+            //for (int i = 0; i < keys.Count; i++)
+            //{
+            //    Debug.Log("bundleName = " + keys[i] + " Depends = " + abManager.loadHelperDic[keys[i]].dependList.Count + " Ref =" + abManager.loadHelperDic[keys[i]].referList.Count);
+            //}
+            abManager.ReleseBundle(allBundleDir[bundleKey], isReleseAsset);
         }
         else {
             Debug.Log("Dont have Bundle  bundleKey = " + bundleKey);

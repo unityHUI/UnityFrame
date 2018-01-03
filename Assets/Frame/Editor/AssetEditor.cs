@@ -53,7 +53,7 @@ public class AssetEditor
         Dictionary<string, string> readDir = new Dictionary<string, string>();
         GetRelativePath(scencePath, readDir);
         foreach (string key in readDir.Keys) {
-            sw.WriteLine(key + " - " + readDir[key]);
+            sw.WriteLine(key + "-" + readDir[key]);
         }
         sw.Close();
         fs.Close();
@@ -196,7 +196,7 @@ public class AssetEditor
         else {
             bundleName = markStr;
         }
-      string bundlePath  = bundleName.ToLower() + "." + importer.assetBundleVariant;
+      string bundlePath  = markStr.ToLower() + "." + importer.assetBundleVariant;
         if (!writer.ContainsKey(bundleName)) {
             writer.Add(bundleName, bundlePath);
         }

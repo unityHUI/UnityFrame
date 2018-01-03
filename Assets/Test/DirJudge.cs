@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Net;
+using System.Net.Sockets;
 public class DirJudge : MonoBehaviour {
     public Transform Npc;
 	// Use this for initialization
 	void Start () {
-        JudgeDir();
+        //     JudgeDir();
+        string hostName = Dns.GetHostName();
+        IPAddress[] ips = Dns.GetHostEntry(hostName).AddressList;
+        for (int i = 0; i < ips.Length; i++) {
+            print("ip = " + ips[i]);
+        }
+        Debug.Log(IPAddress.Any);
 	}
 
     public void JudgeDir() {

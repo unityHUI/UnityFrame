@@ -147,6 +147,7 @@ public class NativeAsset : AssetBase
         switch (tmpMsg.MsgID)
         {
             case (ushort)AssetEventMsg.ReleseAsset:
+                Debug.Log("ReleseAsset name =" + tmpMsg.ResName);
                 ABLoadManager.Instance.ReleseAsset(tmpMsg.ScenceName, tmpMsg.BundleName, tmpMsg.ResName);
                 break;
             case (ushort)AssetEventMsg.ReleseBundleAsset:
@@ -209,8 +210,10 @@ public class NativeAsset : AssetBase
 
     void LoadProgress(string bundleName, float progress)
     {
+        Debug.Log("Loading ....  bundleName = " + bundleName);
         if (progress >= 1.0f)
         {
+            Debug.Log("Bundle Load Finish bundleName =" + bundleName);
             commandManager.CommandCallBack(bundleName);
             commandManager.RemoveBundleCommand(bundleName);
         }

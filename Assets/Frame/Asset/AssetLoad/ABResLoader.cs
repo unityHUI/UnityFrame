@@ -37,6 +37,7 @@ public class ABResLoader
     /// </summary>
     /// <param name="obj"></param>
     public void UnLoadRes(Object  obj) {
+        if(obj.GetType() != typeof(UnityEngine.GameObject))
         Resources.UnloadAsset(obj);
     }
     public void DebugAssetsName() {
@@ -50,7 +51,9 @@ public class ABResLoader
     /// 卸载AssetBundle （false） 不卸载从AssetBundle中实例化的所有对象
     /// </summary>
     public void Dispose() {
+        Debug.Log("Relese Bundle  name = " + mAB.name);
         if (mAB != null) mAB.Unload(false);
+       
     }
 
 

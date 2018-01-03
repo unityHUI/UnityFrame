@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ABRelativeM {
-
+    //
     private List<string> dependList;
     private List<string> referList;
     private ABLoader abLoader;
@@ -59,9 +59,9 @@ public class ABRelativeM {
     /// </summary>
     /// <param name="bundleName"></param>
     /// <returns>true ： 当前无被依赖关系 false ：当前有被依赖关系</returns>
-    public bool RemoveReferBundle(string bundleName) {
+    public bool RemoveReferBundle(string bundle) {
         for (int i = 0; i < referList.Count; i++) {
-            if (bundleName.Equals(referList[i])) {
+            if (bundle.Equals(referList[i])) {
                 referList.RemoveAt(i);
             }
         }
