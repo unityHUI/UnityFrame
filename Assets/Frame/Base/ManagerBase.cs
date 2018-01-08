@@ -89,6 +89,11 @@ public class ManagerBase : MonoBase
                 {
                     tmpNode = tmpNode.next;
                 }
+                //找到最后一个仍然未找到该脚本 正常情况下不会发生
+                if (tmpNode.next == null) {
+                    Debug.Log("This Script Dont Register the msgID  ScriptObj =" + mono.name + " msgId =" + msgID);
+                    return;
+                }
                 if (tmpNode.next.next == null)
                 {
                     tmpNode.next = null;
@@ -126,13 +131,24 @@ public class ManagerBase : MonoBase
     private void HandOutMsg(MsgBase msg)
     {
         EventNode tmpNode = eventTreeDic[msg.MsgID];
-        while (tmpNode != null)
+        do
         {
             tmpNode.data.HandleMsgEvent(msg);
             tmpNode = tmpNode.next;
+        } while (tmpNode != null);
+    }
+
+    void OnDestroy() {
+        List<ushort> tmpKeys = new List<ushort>(eventTreeDic.Keys);
+        for (int i = 0; i < tmpKeys.Count; i++) {
+            EventNode tmpNode = eventTreeDic[tmpKeys[i]];
+            tmpNode = null;
         }
+        eventTreeDic.Clear();
+        GC.Collect(); 
     }
 }
+
 
 public class EventNode
 {

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>E439935D-B2A2-46AE-856D-2AA408428F33</ProjectGuid>
+    <!--$guid1$-->
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Lua\" />
+    <Folder Include="Lua\Frame\" />
+    <Folder Include="Lua\Frame\Base\" />
+    <Folder Include="Lua\Frame\Asset\" />
+    <Folder Include="Lua\Frame\Npc\" />
+    <Folder Include="Lua\Frame\UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lua\Frame.meta" />
+    <Content Include="Lua\Main.lua.meta" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lua\Frame\Asset\LAssetBase.lua" />
+    <Compile Include="Lua\Frame\Asset\LAssetLoad.lua" />
+    <Compile Include="Lua\Frame\Asset\LAssetManager.lua" />
+    <Compile Include="Lua\Frame\Asset\LAssetMsg.lua" />
+    <Compile Include="Lua\Frame\Asset\LAssetMsgDefine.lua" />
+    <Compile Include="Lua\Frame\Base\Define.lua" />
+    <Compile Include="Lua\Frame\Base\LEventNode.lua" />
+    <Compile Include="Lua\Frame\Base\LManagerBase.lua" />
+    <Compile Include="Lua\Frame\Base\LMsgBase.lua" />
+    <Compile Include="Lua\Frame\Base\LMsgCenter.lua" />
+    <Compile Include="Lua\Frame\Npc\LNpcBase.lua" />
+    <Compile Include="Lua\Frame\Npc\LNpcManager.lua" />
+    <Compile Include="Lua\Frame\UI\LUIBase.lua" />
+    <Compile Include="Lua\Frame\UI\LUIManager.lua" />
+    <Compile Include="Lua\Main.lua" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

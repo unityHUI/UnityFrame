@@ -56,7 +56,7 @@ public class NativeAssetCommandNode
         next = null;
     }
 }
-
+// Load Res 的命令管理类
 public class NativeAssetCommandManager
 {
     public Dictionary<string, NativeAssetCommandNode> commandDir;
@@ -124,7 +124,6 @@ public class NativeAsset : AssetBase
             if (commandManager == null) commandManager = new NativeAssetCommandManager();
             return commandManager;
         }
-
     }
 
     private AssetBackMsg currBackMsg;

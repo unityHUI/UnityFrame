@@ -12,6 +12,7 @@ public class ButtonClick : MonoBehaviour
     }
     void OnDestroy()
     {
+
         UIManager.Instance.RemoveGameObejct(name);
     }
 
